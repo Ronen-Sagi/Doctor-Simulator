@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using TMPro;
 
@@ -5,42 +6,47 @@ public class Quiz : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI feedbackText;
     [SerializeField] private TextMeshProUGUI questionText;
-    [SerializeField] private TextMeshProUGUI[] ansTexts;
+    [SerializeField] private GameObject nextQuiz;
 
-    private int correctIdx;
-    
+
     private void Start()
     {
-        Debug.Log($"Start: correctIdx = {correctIdx}");
     }
-    
-    
+
+
     public void Setup(QuestionInfo info)
     {
         questionText.text = info.QuestionText;
-        for (int i = 0; i < ansTexts.Length; i++)
-        {
-            ansTexts[i].text = info.Answers[i];
-        }
-        
-        correctIdx = info.CorrectAnsIndex;
-
         feedbackText.text = "Choose what to do";
         feedbackText.color = Color.white;
     }
-    
-    public void CheckAns(int idx)
+
+    public void CheckAns(bool isCorrect)
     {
-        if (idx == correctIdx)
+        if (isCorrect)
         {
             feedbackText.text = "CORRECT";
             feedbackText.color = Color.green;
+            StartCoroutine(NextQuestionAfterDelay());
         }
         else
         {
             feedbackText.text = "WRONG";
             feedbackText.color = Color.red;
+            StartCoroutine(NextQuestionAfterDelay());
         }
     }
 
+    private void NextQuiz()
+    {
+        StartCoroutine(NextQuestionAfterDelay());
+        nextQuiz.SetActive(true);
+        gameObject.SetActive(false);
+    }
+
+    IEnumerator NextQuestionAfterDelay()
+    {
+        yield return new WaitForSeconds(3);
+        NextQuiz();
+    }
 }
