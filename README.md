@@ -15,6 +15,27 @@
 
 [itch.io](https://rs-co.itch.io/doctor-simulator)
 
+    +---------------------------+
+    |       QuestionInfo        |
+    +---------------------------+
+    | + QuestionText : string   |
+    | + Answers : string[4]     |
+    | + CorrectAnsIndex : int   |
+    +---------------------------+
+    
+    +----------------------------------+
+    |              Quiz                |
+    +----------------------------------+
+    | - feedbackText : TMP_Text        |
+    | - questionText : TMP_Text        |
+    | - nextQuiz : GameObject          |
+    +----------------------------------+
+    | + Start()                        |
+    | + Setup(info : QuestionInfo)     |
+    | + CheckAns(isCorrect : bool)     |
+    | - NextQuiz()                     |
+    | - NextQuestionAfterDelay()       |
+    +----------------------------------+
 
 
 
